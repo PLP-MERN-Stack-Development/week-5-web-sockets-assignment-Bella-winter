@@ -10,7 +10,7 @@ const API = axios.create({
 });
 
 
-export const registerUser = ( username )=> API.post("/auth/register", { username });
+export const loginUser = ( username )=> API.post("/auth/register", { username });
 
 export const getRooms = ()=> API.get("/rooms");
 export const createRoom = (name) => API.post("/rooms", { name });

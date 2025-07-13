@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../services/backendinit";
+import { loginUser } from "../services/backendinit";
+import { loginUser } from "../../../server/Controllers/authController";
 
 export default function Login({ setUser }) {
   const [username, setUsername] = useState("");
@@ -9,7 +10,7 @@ export default function Login({ setUser }) {
   const handleLogin = async () => {
     if (!username.trim()) return alert("Please enter a username.");
     try {
-      const res = await registerUser(username);
+      const res = await loginUser(username);
       setUser(res.data);
       navigate("/");
     } catch (err) {
