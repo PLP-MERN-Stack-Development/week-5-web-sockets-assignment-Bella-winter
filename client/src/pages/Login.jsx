@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/backendinit";
-import { loginUser } from "../../../server/Controllers/authController";
 
 export default function Login({ setUser }) {
   const [username, setUsername] = useState("");

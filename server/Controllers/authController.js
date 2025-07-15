@@ -2,8 +2,10 @@ const User = require("../models/User");
 
 exports.loginUser = async (req, res) => {
     const { username } = req.body;
+    console.log(" Login attempt:", username);
     
       if (!username || username.trim() === "") {
+    console.error(" Username is required");
     return res.status(400).json({ error: "Username is required" });
   }
 
@@ -12,30 +14,15 @@ exports.loginUser = async (req, res) => {
 
     try {
         let user = await User.findOne({ username: cleanUsername });
+        console.log("Searching for user:", cleanUsername);
+
+
         if (!user) user = await User.create({ username: cleanUsername });
-        res.json(user);
+        console.log(" New user created:", user.username);
+        /*res.json(user);*/
     } catch (error) {
-        res.status(500).json({ error: error.message});
+      console.error(" Login error:", error.message);
+        res.status(500).json({ error: "Failed to login." });
         }
     };
 
-    // Login user
-exports.loginUser = async (req, res) => {
-  const { username } = req.body;
-
-  if (!username || username.trim() === "") {
-    return res.status(400).json({ error: "Username is required" });
-  }
-
-  const cleanUsername = username.trim().toLowerCase();
-
-  try {
-    const user = await User.findOne({ username: cleanUsername });
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.status(200).json({ user });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};

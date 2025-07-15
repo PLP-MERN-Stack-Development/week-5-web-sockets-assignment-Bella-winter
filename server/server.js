@@ -6,6 +6,9 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const messageRoutes = require("./routes/messageRoutes");
+const roomRoutes = require("./routes/roomRoutes.js");
+// const authRoutes = require("./routes/authRoutes.js");
 
 // Load environment variables
 dotenv.config();
@@ -22,9 +25,20 @@ const io = new Server(server, {
 });
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/api/messages", messageRoutes);
+app.use("/api/rooms", roomRoutes);
+app.use("/api/auth", authRoutes);
+
+
 
 // Store connected users and messages
 const users = {};
@@ -126,7 +140,7 @@ app.get('/', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost: ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 module.exports = { app, server, io }; 
