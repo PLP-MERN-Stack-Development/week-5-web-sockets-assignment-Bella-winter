@@ -6,9 +6,10 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
-const messageRoutes = require("./routes/messageRoutes");
-const roomRoutes = require("./routes/roomRoutes.js");
-// const authRoutes = require("./routes/authRoutes.js");
+const messageRoutes = require("./Routes/messageRoutes.js");
+const roomRoutes = require("./Routes/roomRoutes.js");
+const authRoutes = require("./Routes/authRoutes.js");
+
 
 // Load environment variables
 dotenv.config();
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/api/messages", messageRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/auth", authRoutes);
+
 
 
 

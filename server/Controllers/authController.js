@@ -19,7 +19,8 @@ exports.loginUser = async (req, res) => {
 
         if (!user) user = await User.create({ username: cleanUsername });
         console.log(" New user created:", user.username);
-        /*res.json(user);*/
+        return res.status(200).json({ message: "Login successful", user });
+
     } catch (error) {
       console.error(" Login error:", error.message);
         res.status(500).json({ error: "Failed to login." });
