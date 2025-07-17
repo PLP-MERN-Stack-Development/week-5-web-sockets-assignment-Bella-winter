@@ -6,9 +6,9 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
-const messageRoutes = require("./Routes/messageRoutes.js");
-const roomRoutes = require("./Routes/roomRoutes.js");
-const authRoutes = require("./Routes/authRoutes.js");
+const messageRoutes = require("./Routes/messageRoutes");
+const roomRoutes = require("./Routes/roomRoutes");
+const authRoutes = require("./Routes/authRoutes");
 
 
 // Load environment variables
@@ -35,11 +35,9 @@ app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use("/api/messages", messageRoutes);
+app.use("/api/room-messages", messageRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/auth", authRoutes);
-
-
 
 
 // Store connected users and messages
@@ -126,7 +124,7 @@ io.on('connection', (socket) => {
 });
 
 // API routes
-app.get('/api/messages', (req, res) => {
+app.get('/api/all-messages', (req, res) => {
   res.json(messages);
 });
 

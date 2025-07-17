@@ -1,41 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/backendinit";
+import { registerUser } from "../services/backendinit";
 
-export default function Login({ setUser }) {
-  const [username, setUsername] = useState("");
-  const navigate = useNavigate();
+export default function Login({ setUser }){
+    const [username, setUsername] = useState("");
+    const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    if (!username.trim()) return alert("Please enter a username.");
-    try {
-      const res = await loginUser(username);
-      setUser(res.data);
-      navigate("/");
-    } catch (err) {
-      console.error("Login error:", err);
-      alert("Failed to login. Please try again.");
-    }
-  };
+    const handleLogin = async () => {
+        const res = await registerUser(username);
+        setUser(res.data);
+        navigate("/")
+    };
 
-  return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
-      <div className="p-6 bg-white rounded shadow-md w-96">
-        <h1 className="text-xl font-bold mb-4">Join Chat</h1>
-        <input
-          className="w-full p-2 border rounded mb-4"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button
-          disabled={!username.trim()}
-          onClick={handleLogin}
-          className="w-full bg-blue-500 text-white p-2 rounded disabled:opacity-50"
-        >
-          Enter
-        </button>
-      </div>
-    </div>
-  );
+    return(
+        <div className="h-screen flex items-center justify-center bg-gray-100">
+            <div className="p-6 bg-white rounded shadow-md w-96">
+                <h1 className="text-xl font-bold mb-4">Join Chat</h1>
+                <input 
+                    className="w-full p-2 border rounded mb-4"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <button onClick={handleLogin} className="w-full bg-blue-500 text-white p-2 rounded">
+                    Enter
+                </button>
+            </div>
+        </div>
+    )
 }
