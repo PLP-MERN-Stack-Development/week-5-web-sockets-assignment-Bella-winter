@@ -6,9 +6,9 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
-const messageRoutes = require("./Routes/messageRoutes");
-const roomRoutes = require("./Routes/roomRoutes");
-const authRoutes = require("./Routes/authRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+const roomRoutes = require("./routes/roomRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 
 // Load environment variables
